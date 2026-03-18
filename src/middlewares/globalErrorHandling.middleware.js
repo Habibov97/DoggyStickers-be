@@ -1,5 +1,10 @@
 const config = require('../config');
-const AppError = require('../utils/appError');
+const {
+  handleUniqueConstraintError,
+  handleValidationError,
+  handleDatabaseError,
+  handleForeignKeyConstraintError,
+} = require('../utils/errorHandling.utils');
 
 const sendErrDev = (err, res) => {
   res.status(err.statusCode).json({

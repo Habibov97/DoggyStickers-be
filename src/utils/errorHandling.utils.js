@@ -1,3 +1,5 @@
+const AppError = require('./AppError.utils');
+
 const handleUniqueConstraintError = (error) => {
   const field = error.errors[0].path;
   const value = error.errors[0].value;

@@ -1,8 +1,14 @@
+const AppError = require('../utils/AppError.utils');
+
 const validationMiddleware = (schema) => {
   return (req, res, next) => {
-    const { error } = schema.validate(req.body);
-    if (error) next(new Error(error.details[0].message));
+    const { success, error, data } = schema.safeParse(req.body);
+    if (!success) {
+      let messages = error.issues.map((err) => err.message);
+      return next(new AppError(messages.join(', '), 400));
+    }
 
+    req.body = data;
     next();
   };
 };
