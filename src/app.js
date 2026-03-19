@@ -7,6 +7,7 @@ const globalErrorMiddleware = require('./middlewares/globalErrorHandling.middlew
 const router = require('./routes');
 const { engine } = require('express-handlebars');
 const path = require('path');
+const model = require('./models');
 
 const app = express();
 

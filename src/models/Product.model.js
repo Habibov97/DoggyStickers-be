@@ -1,5 +1,6 @@
 const sequelize = require('../config/database');
 const { DataTypes } = require('sequelize');
+const slugify = require('slugify');
 
 const Product = sequelize.define(
   'Product',
@@ -20,15 +21,11 @@ const Product = sequelize.define(
     },
     slug: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
   },
   { timestamps: true },
 );
-
-Product.beforeCreate((product) => {
-  product.slug = product.title.replace(/\s+/g, '-').toLowerCase();
-});
 
 module.exports = Product;

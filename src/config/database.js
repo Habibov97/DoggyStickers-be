@@ -1,7 +1,9 @@
 const { Sequelize } = require('sequelize');
 const config = require('./index');
 
-const sequelize = new Sequelize(config.databaseURL);
+const sequelize = new Sequelize(config.databaseURL, {
+  logging: false,
+});
 
 sequelize
   .authenticate()
