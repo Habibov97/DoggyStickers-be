@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const config = require('../config/index');
+const AppError = require('./AppError.utils');
 
 const supabase = createClient(config.supabaseUrl, config.supabaseKey);
 
@@ -10,11 +11,19 @@ const uploadImage = async (file) => {
     contentType: file.mimetype,
   });
 
-  if (error) throw error;
+  if (error) throw new AppError('Image upload failed', 500);
 
   const { data } = supabase.storage.from('DoggyStickers').getPublicUrl(fileName);
 
-  return data.publicUrl;
+  return {
+    url: data.publicUrl,
+    fileName,
+  };
 };
 
-module.exports = { uploadImage };
+const deleteImage = async (fileName) => {
+  const { error } = await supabase.storage.from('DoggyStickers').remove([fileName]);
+  if (error) throw new AppError('Image delete failed', 500);
+};
+
+module.exports = { uploadImage, deleteImage };

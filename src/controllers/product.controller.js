@@ -1,19 +1,43 @@
 const { Image } = require('../models');
 const productService = require('../services/product.service');
-const { uploadImage } = require('../utils/supabase-helper.utils');
+const AppError = require('../utils/AppError.utils');
+const { uploadImage, deleteImage } = require('../utils/supabase-helper.utils');
 
 const upload = async (req, res, next) => {
   try {
-    const url = await uploadImage(req.file);
+    const files = req.files;
 
-    const image = await Image.create({
-      imageUrl: url,
-      productId: req.params.productId,
+    const images = await Promise.all(
+      files.map(async (file) => {
+        const { url, fileName } = await uploadImage(file);
+
+        return await Image.create({
+          imageUrl: url,
+          fileName,
+          productId: req.params.productId,
+        });
+      }),
+    );
+
+    res.json({
+      message: 'images uploaded successfully',
+      data: images,
     });
-
-    res.json({ message: 'image uploaded successfully' });
   } catch (error) {
     next(error);
+  }
+};
+const removeImage = async (req, res, next) => {
+  try {
+    const image = await Image.findByPk(req.params.imageId);
+    if (!image) throw new AppError('Image not found', 404);
+
+    await deleteImage(image.fileName);
+    await image.destroy();
+
+    res.json({ status: 'image deleted successfully' });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -54,6 +78,7 @@ const productController = {
   update,
   remove,
   upload,
+  removeImage,
 };
 
 module.exports = productController;

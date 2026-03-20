@@ -18,6 +18,10 @@ const Image = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    fileName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   { timestamps: true },
 );

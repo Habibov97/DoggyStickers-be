@@ -21,5 +21,11 @@ productRouter
 
 productRouter
   .route('/:productId/images')
-  .post(authMiddleware, roleMiddleware, upload.single('avatar'), productController.upload);
+  .post(authMiddleware, roleMiddleware, upload.array('avatar', 5), productController.upload);
+
+productRouter
+  .route('/images/:imageId')
+
+  .delete(authMiddleware, roleMiddleware, productController.removeImage);
+
 module.exports = productRouter;
