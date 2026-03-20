@@ -4,6 +4,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const roleMiddleware = require('../middlewares/role.middleware');
 const validationMiddleware = require('../middlewares/validation.middleware');
 const productValidation = require('../validations/product.validation');
+const upload = require('../middlewares/upload.middleware');
 
 const productRouter = express.Router();
 
@@ -18,4 +19,7 @@ productRouter
   .patch(authMiddleware, roleMiddleware, validationMiddleware(productValidation.update), productController.update)
   .delete(authMiddleware, roleMiddleware, productController.remove);
 
+productRouter
+  .route('/:productId/images')
+  .post(authMiddleware, roleMiddleware, upload.single('avatar'), productController.upload);
 module.exports = productRouter;

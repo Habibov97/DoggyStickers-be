@@ -4,13 +4,14 @@ const OrderItem = require('./OrderItem.model');
 const Product = require('./Product.model');
 const Variant = require('./Variant.model');
 const Image = require('./Image.model');
+const TokenStorage = require('./TokenStorage.model');
 
 Product.hasMany(Variant, {
   foreignKey: 'productId',
   onDelete: 'CASCADE',
   as: 'variants',
 });
-Variant.belongsTo(Product, { foreignKey: 'productId' });
+Variant.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 
 User.hasMany(Order, { foreignKey: 'userId', onDelete: 'SET NULL' });
 Order.belongsTo(User, { foreignKey: 'userId' });
@@ -26,7 +27,10 @@ Product.hasMany(Image, {
   onDelete: 'CASCADE',
   as: 'images',
 });
-Image.belongsTo(Product, { foreignKey: 'productId' });
+Image.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
+
+User.hasOne(TokenStorage, { foreignKey: 'userId' });
+TokenStorage.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = {
   User,

@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "The Stickers API for Doggy Stickers",
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
@@ -20,6 +21,7 @@
     "jsonwebtoken": "^9.0.3",
     "libphonenumber-js": "^1.12.40",
     "morgan": "^1.10.1",
+    "multer": "^2.1.1",
     "nodemailer": "^8.0.2",
     "pg": "^8.20.0",
     "pg-hstore": "^2.3.4",

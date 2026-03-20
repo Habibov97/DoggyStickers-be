@@ -1,3 +1,4 @@
+const TokenStorage = require('../models/TokenStorage.model');
 const User = require('../models/User.model');
 const AppError = require('../utils/AppError.utils');
 const { encodePayload } = require('../utils/jwt.utils');
@@ -11,6 +12,11 @@ const login = async (params) => {
   if (!password) throw new AppError('email or password is incorrect!', 404);
 
   let token = encodePayload({ userId: user.id });
+
+  let findToken = await TokenStorage.findOne({ where: { userId: user.id } });
+  if (findToken) await findToken.destroy();
+
+  await TokenStorage.create({ userId: user.id, token });
 
   user.password = undefined;
 

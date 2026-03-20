@@ -1,4 +1,21 @@
+const { Image } = require('../models');
 const productService = require('../services/product.service');
+const { uploadImage } = require('../utils/supabase-helper.utils');
+
+const upload = async (req, res, next) => {
+  try {
+    const url = await uploadImage(req.file);
+
+    const image = await Image.create({
+      imageUrl: url,
+      productId: req.params.productId,
+    });
+
+    res.json({ message: 'image uploaded successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const list = async (req, res) => {
   const result = await productService.list();
@@ -36,6 +53,7 @@ const productController = {
   getItem,
   update,
   remove,
+  upload,
 };
 
 module.exports = productController;

@@ -22,7 +22,7 @@ const Variant = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    quantity: {
+    stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

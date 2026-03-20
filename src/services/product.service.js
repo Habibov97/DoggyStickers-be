@@ -11,7 +11,7 @@ const list = async () => {
       {
         model: Variant,
         as: 'variants',
-        attributes: ['id', 'title', 'price', 'quantity'],
+        attributes: ['id', 'title', 'price', 'stock'],
       },
       {
         model: Image,

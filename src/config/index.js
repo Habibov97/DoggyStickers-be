@@ -16,4 +16,6 @@ module.exports = {
     pass: process.env.SMTP_PASS,
     secure: process.env.SMTP_SECURE === '1' ? true : false,
   },
+  supabaseUrl: process.env.SUPABASE_URL,
+  supabaseKey: process.env.SUPABASE_KEY,
 };
