@@ -1,6 +1,5 @@
 const { Image } = require('../models');
 const productService = require('../services/product.service');
-const AppError = require('../utils/AppError.utils');
 const { uploadImage, deleteImage } = require('../utils/supabase-helper.utils');
 
 const upload = async (req, res, next) => {
@@ -27,6 +26,7 @@ const upload = async (req, res, next) => {
     next(error);
   }
 };
+
 const removeImage = async (req, res, next) => {
   try {
     const image = await Image.findByPk(req.params.imageId);
