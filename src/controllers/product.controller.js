@@ -19,7 +19,7 @@ const upload = async (req, res, next) => {
     );
 
     res.json({
-      message: 'images uploaded successfully',
+      message: 'images uploaded successful',
       data: images,
     });
   } catch (error) {
