@@ -16,11 +16,11 @@ Variant.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 User.hasMany(Order, { foreignKey: 'userId', onDelete: 'SET NULL' });
 Order.belongsTo(User, { foreignKey: 'userId' });
 
-Order.hasMany(OrderItem, { foreignKey: 'orderId', onDelete: 'CASCADE' });
+Order.hasMany(OrderItem, { foreignKey: 'orderId', as: 'orderItems', onDelete: 'CASCADE' });
 OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
 
 Variant.hasMany(OrderItem, { foreignKey: 'variantId', onDelete: 'RESTRICT' });
-OrderItem.belongsTo(Variant, { foreignKey: 'variantId' });
+OrderItem.belongsTo(Variant, { foreignKey: 'variantId', as: 'variant' });
 
 Product.hasMany(Image, {
   foreignKey: 'productId',

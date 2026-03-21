@@ -16,7 +16,7 @@ const list = async () => {
       {
         model: Image,
         as: 'images',
-        attributes: ['id', 'imageUrl'],
+        attributes: ['id', 'imageUrl', 'fileName'],
       },
     ],
   });
