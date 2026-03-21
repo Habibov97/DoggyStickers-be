@@ -1,15 +1,16 @@
 const authService = require('../services/auth.service');
-
+const config = require('../config/index');
 const login = async (req, res) => {
   const result = await authService.login(req.body);
   let cookieSettings = {
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    secure: true,
     httpOnly: true,
     sameSite: 'Lax',
   };
 
-  res.cookie('jwt', result.token);
+  if (config.nodeENV === 'production') cookieSettings.secure = true;
+
+  res.cookie('jwt', result.token, cookieSettings);
 
   res.json(result);
 };
