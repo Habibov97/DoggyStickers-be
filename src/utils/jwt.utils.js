@@ -3,7 +3,7 @@ const config = require('../config');
 const AppError = require('./AppError.utils');
 
 const encodePayload = (payload) => {
-  const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '5d' });
+  const token = jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpire });
   return token;
 };
 

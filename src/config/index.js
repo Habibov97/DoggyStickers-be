@@ -9,6 +9,8 @@ module.exports = {
   port: process.env.PORT,
   databaseURL: process.env.DATABASE_URL,
   jwtSecret: process.env.JWT_SECRET,
+  jwtCookieExp: process.env.JWT_COOKIE_EXP,
+  jwtExpire: process.env.JWT_EXPIRE,
   smtp: {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
