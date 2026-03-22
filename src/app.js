@@ -39,7 +39,7 @@ app.use(cors());
 app.use(express.json({ limit: '100kb' }));
 
 // App
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to DoggyStickers app!!!' });
 });
 
