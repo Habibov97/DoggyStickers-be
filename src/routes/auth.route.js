@@ -41,7 +41,6 @@ const authRouter = express.Router();
  *       401:
  *         description: Invalid credentials
  */
-authRouter.route('/login').post(validationMiddleware(authValidation.login), authController.login);
 
 /**
  * @swagger
@@ -88,6 +87,8 @@ authRouter.route('/login').post(validationMiddleware(authValidation.login), auth
  *       400:
  *         description: Validation error
  */
+authRouter.route('/login').post(validationMiddleware(authValidation.login), authController.login);
+
 authRouter.route('/register').post(validationMiddleware(authValidation.register), authController.register);
 
 module.exports = authRouter;
