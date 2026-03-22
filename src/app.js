@@ -54,7 +54,7 @@ app.get('/hbss', (req, res) => {
 });
 
 //swagger
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // routes
 app.use('/api', router);

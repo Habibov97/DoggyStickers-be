@@ -1,7 +1,7 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const path = require('path');
 
-const routerPath = path.join(__dirname, '../routes/*.js');
+const routerPath = path.join(__dirname, '../routes/**/*.js');
 
 const options = {
   definition: {
