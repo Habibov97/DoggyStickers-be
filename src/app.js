@@ -53,11 +53,11 @@ app.get('/hbss', (req, res) => {
   res.render('home');
 });
 
-// routes
-app.use('/api', router);
-
 //swagger
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// routes
+app.use('/api', router);
 
 // error
 app.use(globalErrorMiddleware);
