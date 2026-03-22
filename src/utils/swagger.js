@@ -12,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://doggystickers-api.onrender.com/api',
+        url: 'https://doggystickers-api.onrender.com/',
       },
     ],
     components: {
