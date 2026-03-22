@@ -64,5 +64,5 @@ app.use(globalErrorMiddleware);
 
 //server
 app.listen(config.port, () => {
-  console.log(`Listening to http://localhost:${config.port}`);
+  console.log(`Listening to ${config.baseURL}:${config.port}`);
 });

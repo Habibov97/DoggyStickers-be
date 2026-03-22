@@ -1,6 +1,6 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const path = require('path');
-
+const config = require('../config/index');
 const routerPath = path.join(__dirname, '../routes/**/*.js');
 
 const options = {
@@ -12,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: 'https://doggystickers-api.onrender.com/api',
+        url: `${config.baseURL}/api`,
       },
     ],
     components: {
