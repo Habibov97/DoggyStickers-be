@@ -15,6 +15,15 @@ const options = {
         url: 'https://doggystickers-api.onrender.com/api',
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
   },
   apis: [routerPath], // route file-lar
 };

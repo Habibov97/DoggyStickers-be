@@ -8,6 +8,158 @@ const upload = require('../middlewares/upload.middleware');
 
 const productRouter = express.Router();
 
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: List all products
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: List of products
+ *         content:
+ *           application/json:
+ *             example:
+ *               - id: 1
+ *                 title: The Unicorn
+ *                 desc: They exist!
+ *                 slug: the-unicorn
+ *                 createdAt: 2026-03-22T05:00:00.000Z
+ *                 updatedAt: 2026-03-22T05:00:00.000Z
+ */
+
+/**
+ * @swagger
+ * /products:
+ *   post:
+ *     summary: Create a new product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [title, desc]
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: The Unicorn
+ *               desc:
+ *                 type: string
+ *                 example: They exist!
+ *     responses:
+ *       200:
+ *         description: Created product
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: 1
+ *               title: The Unicorn
+ *               desc: They exist!
+ *               slug: the-unicorn
+ *               createdAt: 2026-03-22T05:00:00.000Z
+ *               updatedAt: 2026-03-22T05:00:00.000Z
+ */
+
+/**
+ * @swagger
+ * /products/{slug}:
+ *   get:
+ *     summary: Get a single product by slug
+ *     tags: [Products]
+ *     parameters:
+ *       - name: slug
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: the-unicorn
+ *     responses:
+ *       200:
+ *         description: Product details
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: 1
+ *               title: The Unicorn
+ *               desc: They exist!
+ *               slug: the-unicorn
+ *               createdAt: 2026-03-22T05:00:00.000Z
+ *               updatedAt: 2026-03-22T05:00:00.000Z
+ *       404:
+ *         description: Product not found
+ */
+
+/**
+ * @swagger
+ * /products/{slug}:
+ *   patch:
+ *     summary: Update a product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: slug
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: the-unicorn
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: The Magic Unicorn
+ *               desc:
+ *                 type: string
+ *                 example: Still exists!
+ *     responses:
+ *       200:
+ *         description: Product updated
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: product has been updated
+ *       400:
+ *         description: Slug cannot be updated
+ *       404:
+ *         description: Product not found
+ */
+
+/**
+ * @swagger
+ * /products/{slug}:
+ *   delete:
+ *     summary: Delete a product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: slug
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: the-unicorn
+ *     responses:
+ *       200:
+ *         description: Product removed
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: product has been removed
+ *       404:
+ *         description: Product not found
+ */
+
 productRouter
   .route('/')
   .get(productController.list)
