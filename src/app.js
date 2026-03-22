@@ -8,6 +8,9 @@ const { engine } = require('express-handlebars');
 const { rateLimit } = require('express-rate-limit');
 const helmet = require('helmet');
 const { xss } = require('express-xss-sanitizer');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./utils/swagger');
+
 const globalErrorMiddleware = require('./middlewares/globalErrorHandling.middleware');
 
 const router = require('./routes');
@@ -35,8 +38,6 @@ app.use(cors());
 //body parser
 app.use(express.json({ limit: '100kb' }));
 
-//data sanitization against no-sql query injection and agaisnt xss
-
 // App
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to DoggyStickers app!!!' });
@@ -55,9 +56,8 @@ app.get('/hbss', (req, res) => {
 // routes
 app.use('/api', router);
 
-//upload
-const uploadPath = path.join(__dirname, '/public/uploads');
-app.get('/uploads', express.static(uploadPath));
+//swagger
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // error
 app.use(globalErrorMiddleware);
