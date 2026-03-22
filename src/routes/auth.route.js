@@ -10,8 +10,7 @@ const authRouter = express.Router();
  *   post:
  *     summary: User login
  *     tags:
- *      - name: Auth
- *      description: Authentication endpoints
+ *       - Auth
  *     requestBody:
  *       required: true
  *       content:
@@ -29,15 +28,6 @@ const authRouter = express.Router();
  *     responses:
  *       200:
  *         description: Login successful
- *         content:
- *           application/json:
- *             example:
- *               token: "jwt_token_here"
- *               user:
- *                 id: 5
- *                 email: najaff.habibov@gmail.com
- *                 username: najaff
- *                 role: user
  *       401:
  *         description: Invalid credentials
  */
@@ -48,15 +38,17 @@ const authRouter = express.Router();
  *   post:
  *     summary: User registration
  *     tags:
- *       - name: Auth
- *       description: Authentication endpoints
+ *       - Auth
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password, username]
+ *             required:
+ *               - email
+ *               - password
+ *               - username
  *             properties:
  *               email:
  *                 type: string
@@ -87,6 +79,7 @@ const authRouter = express.Router();
  *       400:
  *         description: Validation error
  */
+
 authRouter.route('/login').post(validationMiddleware(authValidation.login), authController.login);
 
 authRouter.route('/register').post(validationMiddleware(authValidation.register), authController.register);
