@@ -2,6 +2,7 @@ const express = require('express');
 const authController = require('../controllers/auth.controller');
 const validationMiddleware = require('../middlewares/validation.middleware');
 const authValidation = require('../validations/auth.validation');
+const authMiddleware = require('../middlewares/auth.middleware');
 const authRouter = express.Router();
 
 /**
@@ -80,8 +81,41 @@ const authRouter = express.Router();
  *         description: Validation error
  */
 
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     summary: Get current authenticated user
+ *     description: Returns the currently authenticated user based on JWT token
+ *     tags:
+ *       - Auth
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved current user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: 64f1c2a9e1234567890abcde
+ *                 email:
+ *                   type: string
+ *                   example: user@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user
+ *       401:
+ *         description: Unauthorized - token missing or invalid
+ */
+
 authRouter.route('/login').post(validationMiddleware(authValidation.login), authController.login);
 
 authRouter.route('/register').post(validationMiddleware(authValidation.register), authController.register);
+
+authRouter.route('/me').get(authMiddleware, authController.currentUser);
 
 module.exports = authRouter;

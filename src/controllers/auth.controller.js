@@ -20,9 +20,17 @@ const register = async (req, res) => {
   res.json(result);
 };
 
+const currentUser = async (req, res) => {
+  const result = req.user;
+  console.log(result);
+
+  res.json(result);
+};
+
 const authController = {
   login,
   register,
+  currentUser,
 };
 
 module.exports = authController;
