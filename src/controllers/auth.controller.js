@@ -22,7 +22,8 @@ const register = async (req, res) => {
 
 const currentUser = async (req, res) => {
   const result = req.user;
-  console.log(result);
+
+  result.password = undefined;
 
   res.json(result);
 };
