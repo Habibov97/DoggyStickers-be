@@ -160,6 +160,85 @@ const productRouter = express.Router();
  *         description: Product not found
  */
 
+/**
+ * @swagger
+ * /products/{productId}/images:
+ *   post:
+ *     summary: Upload images for a product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: productId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required: [avatar]
+ *             properties:
+ *               avatar:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 maxItems: 5
+ *     responses:
+ *       200:
+ *         description: Images uploaded successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: images uploaded successful
+ *               data:
+ *                 - id: 1
+ *                   imageUrl: https://cdn.example.com/uploads/unicorn.png
+ *                   fileName: unicorn.png
+ *                   productId: 1
+ *                   createdAt: 2026-03-22T05:00:00.000Z
+ *                   updatedAt: 2026-03-22T05:00:00.000Z
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ */
+
+/**
+ * @swagger
+ * /products/images/{imageId}:
+ *   delete:
+ *     summary: Delete a product image
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: imageId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     responses:
+ *       200:
+ *         description: Image deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: image deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Image not found
+ */
+
 productRouter
   .route('/')
   .get(productController.list)
